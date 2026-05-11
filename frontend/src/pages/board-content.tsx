@@ -8,6 +8,14 @@ interface IBoardContentProps {
 }
 
 const BoardContent: FC<IBoardContentProps> = ({ board }: IBoardContentProps) => {
+  board.addColumn('Backlog')
+  board.addColumn('Ready')
+  board.addColumn('In progress')
+  board.addColumn('In review')
+  board.addColumn('Done')
+  board.addItem('In progress', new Item('Kanban', '', '', ''))
+  board.addItem('In progress', new Item('Board', '', '', ''))
+
   const [itemsByColumn, setItemsByColumn] = useState<Map<string, Array<Item>>>(
     () => new Map(board.columns.map(column => [column, board.getItemsByColumn(column)]))
   )
