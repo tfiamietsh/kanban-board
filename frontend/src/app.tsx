@@ -2,6 +2,7 @@ import { Router } from 'preact-router'
 import Header from './components/header'
 import Footer from './components/footer'
 import Home from './pages/home'
+import Boards from './pages/boards'
 import NotFound from './pages/not-found'
 
 export function App() {
@@ -12,6 +13,7 @@ export function App() {
         <main>
           <Router>
             <Home path="/" />
+            <Boards path="/boards/:selectedBoardIdx?" />
             <NotFound default />
           </Router>
         </main>
