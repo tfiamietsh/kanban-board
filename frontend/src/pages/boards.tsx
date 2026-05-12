@@ -37,8 +37,8 @@ const Boards: FC<IBoardsProps> = ({ selectedBoardIdx }: IBoardsProps) => {
       <div class="mr-1 p-1 rounded-md bg-slate-950/50 max-w-191">
         {
           boardsService.hasSelectedBoard() ?
-          <BoardContent path="/:id" board={boardsService.selectedBoard} /> :
-          <div path="/" class="min-w-full min-h-full pl-53 text-left content-center pl-4">
+          <BoardContent board={boardsService.selectedBoard} /> :
+          <div class="min-w-full min-h-full pl-53 text-left content-center pl-4">
             Create or select board
           </div>
         }

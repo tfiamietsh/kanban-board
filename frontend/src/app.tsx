@@ -1,9 +1,10 @@
-import { Router } from 'preact-router'
+import { lazy, LocationProvider, Router, Route } from 'preact-iso'
 import Header from './components/header'
 import Footer from './components/footer'
-import Home from './pages/home'
-import Boards from './pages/boards'
 import NotFound from './pages/not-found'
+
+const Home = lazy(() => import('./pages/home'))
+const Boards = lazy(() => import('./pages/boards'))
 
 export function App() {
   return (
@@ -11,11 +12,13 @@ export function App() {
       <div class="flex flex-col max-w-240 mx-auto text-white font-light">
         <Header />
         <main>
-          <Router>
-            <Home path="/" />
-            <Boards path="/boards/:selectedBoardIdx?" />
-            <NotFound default />
-          </Router>
+          <LocationProvider>
+            <Router>
+              <Route path="/" component={Home} />
+              <Route path="/boards/:selectedBoardIdx?" component={Boards} />
+              <NotFound default />
+            </Router>
+          </LocationProvider>
         </main>
         <Footer />
       </div>
