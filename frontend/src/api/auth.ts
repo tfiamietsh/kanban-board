@@ -1,6 +1,6 @@
 const API_BASE = import.meta.env.VITE_API_BASE || '/api'
 
-export async function register(email: string, password: string, role='user'){
+export async function register(email: string, password: string, role='user') {
   const res = await fetch(`${API_BASE}/auth/register/`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
@@ -10,7 +10,7 @@ export async function register(email: string, password: string, role='user'){
   return res.json()
 }
 
-export async function login(email:string,password:string){
+export async function login(email: string, password: string) {
   const res = await fetch(`${API_BASE}/auth/token/`, {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
