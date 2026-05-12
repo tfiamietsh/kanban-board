@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+body {
+  scrollbar-color: white transparent;
+}
+
+input:focus {
+  outline: 1px solid white;
+}
