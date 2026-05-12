@@ -8,9 +8,10 @@ interface IModalProps {
   labels?: string[]
   btnText: string
   onSubmit: (data: Map<string, string>) => Promise<string | null>
+  onClose: () => void
 }
 
-const Modal: FC<IModalProps> = ({ title, fields, types, labels, btnText, onSubmit }: IModalProps) => {
+const Modal: FC<IModalProps> = ({ title, fields, types, labels, btnText, onSubmit, onClose }: IModalProps) => {
   const [formData, setFormData] = useState<Map<string, string>>(
     () => new Map(fields.map(field => [field, '']))
   )
@@ -41,14 +42,15 @@ const Modal: FC<IModalProps> = ({ title, fields, types, labels, btnText, onSubmi
   }
 
   return (
-    <div class="fixed inset-0 place-items-center mt-32 ${}" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 place-items-center mt-32" aria-modal="true" role="dialog" onClick={onClose}>
       <form
         class="flex flex-col gap-1 relative rounded-lg border p-2 backdrop-blur-sm w-64 h-min"
         onSubmit={onSubmitAsync}
+        onClick={(event: Event) => event.stopPropagation()}
       >
         <div class="flex place-content-between">
           <p class="text-lg">{title}</p>
-          <p class="cursor-pointer hover:underline">⨉</p>
+          <p class="cursor-pointer hover:underline" onClick={onClose}>⨉</p>
         </div>
         {
           fields.map((field, i) =>

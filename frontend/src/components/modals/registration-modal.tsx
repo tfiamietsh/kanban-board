@@ -4,9 +4,10 @@ import Modal from './modal'
 
 interface IRegistrationModalProps {
   isVisible: boolean
+  onClose: () => void
 }
 
-const RegistrationModal: FC<IRegistrationModalProps> = ({ isVisible }: IRegistrationModalProps) => {
+const RegistrationModal: FC<IRegistrationModalProps> = ({ isVisible, onClose }: IRegistrationModalProps) => {
   const parseData = async (data: Map<string, string>) => {
     return register(data.get('email'), data.get('password'))
       .then((result) => console.log('reg returned:', result))
@@ -25,6 +26,7 @@ const RegistrationModal: FC<IRegistrationModalProps> = ({ isVisible }: IRegistra
       labels={['Email', 'Password']}
       btnText="Register"
       onSubmit={(data: Map<string, string>) => parseData(data)}
+      onClose={onClose}
     />
   )
 }

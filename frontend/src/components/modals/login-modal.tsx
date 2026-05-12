@@ -4,9 +4,10 @@ import Modal from './modal'
 
 interface ILoginModalProps {
   isVisible: boolean
+  onClose: () => void
 }
 
-const LoginModal: FC<ILoginModalProps> = ({ isVisible }: ILoginModalProps) => {
+const LoginModal: FC<ILoginModalProps> = ({ isVisible, onClose }: ILoginModalProps) => {
   const parseData = async (data: Map<string, string>) => {
     return login(data.get('email'), data.get('password'))
       .then((result) => console.log('login returned:', result))
@@ -22,8 +23,10 @@ const LoginModal: FC<ILoginModalProps> = ({ isVisible }: ILoginModalProps) => {
       title="Login"
       fields={['email', 'password']}
       types={['text', 'password']}
+      labels={['Email', 'Password']}
       btnText="Login"
       onSubmit={(data: Map<string, string>) => parseData(data)}
+      onClose={onClose}
     />
   )
 }
