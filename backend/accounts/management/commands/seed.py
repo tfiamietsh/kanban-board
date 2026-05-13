@@ -2,21 +2,14 @@ from django.core.management.base import BaseCommand
 from accounts.models import User
 
 class Command(BaseCommand):
-    ADMIN_EMAIL = 'admin@example.com'
-    MODERATOR_EMAIL = 'mod@example.com'
-    USER_EMAIL = 'user@example.com'
+    help = 'Seed initial users'
 
-    help = 'Seed initial users and roles'
+    def __create_user(self, email: str, password: str) -> None:
+        if not User.objects.filter(email=email).exists():
+            User.objects.create_superuser(email=email, password=password)
+            self.stdout.write(self.style.SUCCESS(f'Created user with email: {email}'))
 
-    def handle(self, *args, **opts):
-        if not User.objects.filter(email=ADMIN_EMAIL).exists():
-            User.objects.create_superuser(email=ADMIN_EMAIL, password='adminpass')
-            self.stdout.write(self.style.SUCCESS('Created admin'))
-
-        if not User.objects.filter(email=MODERATOR_EMAIL).exists():
-            User.objects.create_user(email=MODERATOR_EMAIL, password='modpass', role='moderator')
-            self.stdout.write(self.style.SUCCESS('Created moderator'))
-
-        if not User.objects.filter(email=USER_EMAIL).exists():
-            User.objects.create_user(email=USER_EMAIL, password='userpass', role='user')
-            self.stdout.write(self.style.SUCCESS('Created user'))
+    def handle(self, *args, **opts) -> None:
+        self.__create_user('heth@silent.hill', 'heather')
+        self.__create_user('clem@walking.dead', 'clementine')
+        self.__create_user('lucy@cyber.punk', 'lucy')
